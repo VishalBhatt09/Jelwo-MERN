@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./src/config/db");
 
 const authRoutes = require("./src/routes/auth");
+const adminRoutes = require("./src/routes/admin")
 const productRoutes = require("./src/routes/product");
 const { errorHandler } = require("./src/middleware/errorMiddleware");
 
@@ -19,6 +20,7 @@ app.use(cors());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/admin",adminRoutes);
 app.use("/api/products", productRoutes);
 
 // Test route

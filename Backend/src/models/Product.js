@@ -1,15 +1,70 @@
 const mongoose = require("mongoose");
-const User = require("./User");
 
 const productSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    description: { type: string, required: true },
-    price: { type: Number, required: true },
-    stock: { type: Number, default: 0 },
-    Image: { type: string, default: null },
-    category: { type: string, default: "general" },
-    User: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    title: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
+    slug: {
+      type: String,
+      required: true,
+      unique: true
+    },
+
+    images: [
+      {
+        type: String,
+        required: true
+      }
+    ],
+
+    price: {
+      type: Number,
+      required: true
+    },
+
+    comparePrice: {
+      type: Number
+    },
+
+    discountPercent: {
+      type: Number,
+      default: 0
+    },
+
+    sizes: [
+      {
+        type: String
+      }
+    ],
+
+    colors: [
+      {
+        type: String
+      }
+    ],
+
+    stock: {
+      type: Number,
+      default: 0
+    },
+
+    category: {
+      type: String,
+      default: "jewelry"
+    },
+
+    productUrl: {
+      type: String
+    },
+
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    }
   },
   { timestamps: true }
 );

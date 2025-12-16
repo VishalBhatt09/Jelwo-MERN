@@ -3,6 +3,49 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 
+
+
+
+// admin register 
+
+const registerAdmin = asyncHandler(async (req,res) => {
+
+  const {name , email , password, adminSecret}= req.body ;
+
+  if (!name|| !email|| !password||!adminSecret){
+    res.status(400);
+    throw new Error("All fields are required");
+    }
+
+    // varifiy admin secret 
+    if (adminSecret !== process.env.ADMIN_SECRET){
+      res.status(403);
+      throw new Error("Invalid admin secret");      
+    }
+
+    const userExists =await User.findOne ({email});
+    if (userExists){
+      res.status(400);
+      throw new Error("Admin already exists");      
+    }
+    const hashedPassword =await bcrypt.hash(password, 10);
+
+    const admin = await User.create({
+      name ,
+      email,
+      password:hashedPassword,
+      roll: "admin"
+    });
+
+    res.status(201).json({
+      _id:admin._id,
+      name:admin.name,
+      email:admin.email,
+      roll:admin.roll,
+      token:generateToken(admin._id)
+    });
+});
+
 // REGISTER
 const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
@@ -44,6 +87,7 @@ const login = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      roll:user.roll,
       token: generateToken(user._id),
     });
   } else {
@@ -57,4 +101,5 @@ const getMe = asyncHandler(async (req, res) => {
   res.json(req.user);
 });
 
-module.exports = { register, login, getMe };
+module.exports = { register, login, getMe,registerAdmin
+ };
