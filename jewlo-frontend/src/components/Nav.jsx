@@ -19,7 +19,7 @@ export default function Nav() {
           <Link to="/" className="font-bold  text-black">
             <img src="./src/img/jewelry-4-logo.webp" alt="jelwo" className="h-[5vh]" />
           </Link>
-          <span className="text-gray-500">
+          <span className="text-5x1 text-gray-500">
             Free UK standard delivery on all orders.
           </span>
         </div>
@@ -36,9 +36,9 @@ export default function Nav() {
             />
             {/* Remove FiSearch icon as it was inside the relative container, re-insert below if needed */}
           </div>
-          <div className=" text-bold  h-full">
+          {/* <div className=" text-bold  h-full">
             <FiSearch />
-          </div>
+          </div> */}
 
           <Link to="/login">
             <FiUser className="text-xl cursor-pointer" />
@@ -81,7 +81,7 @@ export default function Nav() {
             </div>
 
             {shopOpen && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-10 w-[1100px] bg-white shadow-xl border p-8 grid grid-cols-5 gap-6 z-50">
+              <div className="absolute left-1/3 -translate-x-1/2 top-10 w-[1100px] bg-white shadow-xl border p-8 grid grid-cols-5 ">
 
                 {/* Earrings */}
                 <div>
@@ -138,13 +138,11 @@ export default function Nav() {
                 {/* Banner */}
                 <Link to="/shop" className="relative">
                   <img
-                    src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600"
+                    src="./src/img/jewelry-4-menu-banner.jpg"
                     alt="Offer"
-                    className="rounded-lg h-full object-cover"
+                    className="rounded-lg h-full w-full object-cover"
                   />
-                  <span className="absolute inset-y-0 left-0 bg-[#b38b6d] text-white px-3 flex items-center rotate-180 writing-mode-vertical text-sm tracking-widest">
-                    FLAT 30% OFF
-                  </span>
+
                 </Link>
               </div>
             )}
