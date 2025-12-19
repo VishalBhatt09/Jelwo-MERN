@@ -4,6 +4,7 @@ import Nav from './components/Nav'
 import HeroSlider from './components/HeroSlide'
 import Footer from "./components/Footer"
 import PromoBanners from './components/PromoBanners'
+import NewsletterPopup from './components/NewsSattel'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <>
+      <NewsletterPopup />
       <Nav />
       <HeroSlider />
       <PromoBanners />
