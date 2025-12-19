@@ -1,24 +1,25 @@
-// import { useState } from 'react'
-// import { Routes, Route } from 'react-router-dom'
-import Nav from './components/Nav'
-import HeroSlider from './components/HeroSlide'
-import Footer from "./components/Footer"
-import PromoBanners from './components/PromoBanners'
-import NewsletterPopup from './components/NewsSattel'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import MainLayout from "./Layout/MainLayout";
+
+// Pages
+import Home from "./pages/Home";
+// import Shop from "./pages/Shop";
+// import Product from "./pages/Product";
+// import Contact from "./pages/Contact";
 
 function App() {
-
-
-
   return (
-    <>
-      <NewsletterPopup />
-      <Nav />
-      <HeroSlider />
-      <PromoBanners />
-      <Footer />
-    </>
-  )
+    <Routes>
+      {/* MAIN LAYOUT */}
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        {/* <Route path="shop" element={<Shop />} />
+        <Route path="product/:id" element={<Product />} />
+        <Route path="contact" element={<Contact />} /> */}
+      </Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;
