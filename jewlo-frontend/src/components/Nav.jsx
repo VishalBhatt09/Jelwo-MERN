@@ -12,14 +12,20 @@ export default function Nav() {
   const [shopOpen, setShopOpen] = useState(false);
 
   return (
-    <header className="w-full p-6 border-b border-gray-200">
-      {/* 🔹 Top Bar */}
-      <div className="  text-sm text-gray-600 py-2 px-6 flex justify-between items-center">
+    <header className="fixed top-0 left-0 w-full bg-white border-b border-gray-200 z-1000">
+
+      {/* 🔹 TOP BAR */}
+      <div className="text-sm text-gray-600 py-2 px-6 flex justify-between items-center">
         <div className="flex items-center gap-6">
-          <Link to="/" className="font-bold  text-black">
-            <img src="./src/img/jewelry-4-logo.webp" alt="jelwo" className="h-[5vh]" />
+          <Link to="/" className="font-bold text-black">
+            <img
+              src="./src/img/jewelry-4-logo.webp"
+              alt="jelwo"
+              className="h-[5vh]"
+            />
           </Link>
-          <span className="text-5x1 text-gray-500">
+
+          <span className="text-gray-500">
             Free UK standard delivery on all orders.
           </span>
         </div>
@@ -27,18 +33,12 @@ export default function Nav() {
         {/* Search + Icons */}
         <div className="flex items-center gap-5">
           <div className="relative hidden md:block">
-            {/* Search Input moved and all CSS adjustments applied */}
             <input
               type="text"
               placeholder="Search product..."
-              className="border rounded-full pl-10 pr-15 text-black py-4 text-sm focus:outline-none flex flex-wrap text-center"
-              style={{ fontFamily: '"Segoe UI Emoji"' }}
+              className="border rounded-full pl-6 pr-12 py-3 text-sm focus:outline-none"
             />
-            {/* Remove FiSearch icon as it was inside the relative container, re-insert below if needed */}
           </div>
-          {/* <div className=" text-bold  h-full">
-            <FiSearch />
-          </div> */}
 
           <Link to="/login">
             <FiUser className="text-xl cursor-pointer" />
@@ -54,23 +54,25 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* 🔹 Bottom Navigation */}
+      {/* 🔹 MAIN NAV */}
       <nav className="bg-white px-6 py-4 flex items-center justify-between relative">
-        {/* Phone */}
+
+        {/* PHONE */}
         <div className="hidden lg:flex items-center gap-2 text-gray-700">
           <span className="text-lg">📞</span>
           <span>(220) 123 456 7890</span>
         </div>
 
-        {/* Menu */}
+        {/* MENU */}
         <ul className="flex items-center gap-8 font-medium text-gray-800 mx-auto">
+
           <li>
             <Link to="/" className="hover:text-[#b38b6d]">
               HOME
             </Link>
           </li>
 
-          {/* SHOP Mega Menu */}
+          {/* SHOP MEGA MENU */}
           <li
             className="relative"
             onMouseEnter={() => setShopOpen(true)}
@@ -81,7 +83,7 @@ export default function Nav() {
             </div>
 
             {shopOpen && (
-              <div className="absolute left-1/3 -translate-x-1/2 top-10 w-[1100px] bg-white shadow-xl border p-8 grid grid-cols-5 ">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full mt-6 w-[1100px] bg-white shadow-xl border p-8 grid grid-cols-5 gap-6 z-1100">
 
                 {/* Earrings */}
                 <div>
@@ -135,15 +137,15 @@ export default function Nav() {
                   </ul>
                 </div>
 
-                {/* Banner */}
+                {/* BANNER */}
                 <Link to="/shop" className="relative">
                   <img
                     src="./src/img/jewelry-4-menu-banner.jpg"
                     alt="Offer"
                     className="rounded-lg h-full w-full object-cover"
                   />
-
                 </Link>
+
               </div>
             )}
           </li>
@@ -165,9 +167,10 @@ export default function Nav() {
               PAGES
             </Link>
           </li>
+
         </ul>
 
-        {/* Right CTA */}
+        {/* CTA */}
         <Link
           to="/try-at-home"
           className="hidden lg:flex items-center gap-2 font-semibold hover:text-[#b38b6d]"

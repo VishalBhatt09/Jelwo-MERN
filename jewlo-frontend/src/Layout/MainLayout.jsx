@@ -11,9 +11,10 @@ export default function MainLayout() {
       <Nav />
 
       {/* PAGE CONTENT */}
-      <main>
+      <main className="pt-[160px]">
         <Outlet />
       </main>
+
 
       <Footer />
     </>
