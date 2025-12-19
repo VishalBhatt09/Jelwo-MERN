@@ -78,9 +78,11 @@ export default function HeroSlider() {
                   Jewelry made <br /> with love
                 </h1>
 
-                <button className="mt-8 px-8 py-3 bg-[#a37b5a] text-white rounded-full">
-                  SHOP COLLECTION
-                </button>
+                <Link to="#">
+                  <button className="mt-8 px-8 py-3 bg-[#a37b5a] text-white rounded-full">
+                    SHOP NOW
+                  </button>
+                </Link>
               </div>
 
 
@@ -114,9 +116,11 @@ export default function HeroSlider() {
 
                 </h1>
 
-                <button className="mt-8 px-8 py-3 bg-[#a37b5a] text-white rounded-full">
-                  SHOP COLLECTION
-                </button>
+                <Link to="#">
+                  <button className="mt-8 px-8 py-3 bg-[#a37b5a] text-white rounded-full">
+                    SHOP NOW
+                  </button>
+                </Link>
               </div>
 
 

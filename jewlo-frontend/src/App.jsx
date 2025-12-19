@@ -2,6 +2,8 @@
 // import { Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav'
 import HeroSlider from './components/HeroSlide'
+import Footer from "./components/Footer"
+import PromoBanners from './components/PromoBanners'
 
 function App() {
 
@@ -11,6 +13,8 @@ function App() {
     <>
       <Nav />
       <HeroSlider />
+      <PromoBanners />
+      <Footer />
     </>
   )
 }
