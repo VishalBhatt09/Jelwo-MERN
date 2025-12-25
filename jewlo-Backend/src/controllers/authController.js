@@ -3,47 +3,68 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 
+// admin register
 
+const registerAdmin = asyncHandler(async (req, res) => {
+  const { name, email, password, adminSecret } = req.body;
 
-
-// admin register 
-
-const registerAdmin = asyncHandler(async (req,res) => {
-
-  const {name , email , password, adminSecret}= req.body ;
-
-  if (!name|| !email|| !password||!adminSecret){
+  if (!name || !email || !password || !adminSecret) {
     res.status(400);
     throw new Error("All fields are required");
-    }
+  }
 
-    // varifiy admin secret 
-    if (adminSecret !== process.env.ADMIN_SECRET){
-      res.status(403);
-      throw new Error("Invalid admin secret");      
-    }
+  // varifiy admin secret
+  if (adminSecret !== process.env.ADMIN_SECRET) {
+    res.status(403);
+    throw new Error("Invalid admin secret");
+  }
 
-    const userExists =await User.findOne ({email});
-    if (userExists){
-      res.status(400);
-      throw new Error("Admin already exists");      
-    }
-    const hashedPassword =await bcrypt.hash(password, 10);
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("Admin already exists");
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    const admin = await User.create({
-      name ,
-      email,
-      password:hashedPassword,
-      roll: "admin"
-    });
+  const admin = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    role: "admin",
+  });
 
-    res.status(201).json({
-      _id:admin._id,
-      name:admin.name,
-      email:admin.email,
-      roll:admin.roll,
-      token:generateToken(admin._id)
-    });
+  res.status(201).json({
+    _id: admin._id,
+    name: admin.name,
+    email: admin.email,
+    role: admin.role,
+    token: generateToken(admin._id),
+  });
+});
+
+// adminlogin
+exports.adminLogin = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const admin = await User.findOne({ email, role: "admin" });
+  if (!admin) {
+    res.status(401);
+    throw new Error("Admin not found");
+  }
+
+  const isMatch = await bcrypt.compare(password, admin.password);
+  if (!isMatch) {
+    res.status(401);
+    throw new Error("Invalid credentials");
+  }
+
+  res.json({
+    id: admin._id,
+    name: admin.name,
+    email: admin.email,
+    role: admin.role, // 🔥 IMPORTANT
+    token: generateToken(admin._id, admin.role),
+  });
 });
 
 // REGISTER
@@ -87,7 +108,7 @@ const login = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      roll:user.roll,
+      role: user.role,
       token: generateToken(user._id),
     });
   } else {
@@ -101,5 +122,4 @@ const getMe = asyncHandler(async (req, res) => {
   res.json(req.user);
 });
 
-module.exports = { register, login, getMe,registerAdmin
- };
+module.exports = { register, login, getMe, registerAdmin };

@@ -1,72 +1,23 @@
-const mongoose = require("mongoose");
+const asyncHandler = require("express-async-handler");
+const Product = require("../models/Product");
 
-const productSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-      trim: true
-    },
+exports.createProduct = asyncHandler(async (req, res) => {
+  const { title, price, category, stock } = req.body;
 
-    slug: {
-      type: String,
-      required: true,
-      unique: true
-    },
+  if (!req.files || req.files.length === 0) {
+    res.status(400);
+    throw new Error("Product images required");
+  }
 
-    images: [
-      {
-        type: String,
-        required: true
-      }
-    ],
+  const images = req.files.map((file) => file.path);
 
-    price: {
-      type: Number,
-      required: true
-    },
+  const product = await Product.create({
+    title,
+    price,
+    category,
+    stock,
+    images, // Cloudinary URLs
+  });
 
-    comparePrice: {
-      type: Number
-    },
-
-    discountPercent: {
-      type: Number,
-      default: 0
-    },
-
-    sizes: [
-      {
-        type: String
-      }
-    ],
-
-    colors: [
-      {
-        type: String
-      }
-    ],
-
-    stock: {
-      type: Number,
-      default: 0
-    },
-
-    category: {
-      type: String,
-      default: "jewelry"
-    },
-
-    productUrl: {
-      type: String
-    },
-
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    }
-  },
-  { timestamps: true }
-);
-
-module.exports = mongoose.model("Product", productSchema);
+  res.status(201).json(product);
+});

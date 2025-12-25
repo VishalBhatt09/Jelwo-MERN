@@ -1,10 +1,8 @@
-const adminOnly = (req,res,next)=>{
-  if (req.user && req.user.roll==="admin"){
+exports.adminOnly = (req, res, next) => {
+  if (req.user && req.user.role === "admin") {
     next();
-  }else{
+  } else {
     res.status(403);
-    throw new Error("admin access only");
+    throw new Error("Admin access only");
   }
 };
-
-module.exports={adminOnly}

@@ -4,19 +4,22 @@ import MainLayout from "./Layout/MainLayout";
 
 // Pages
 import Home from "./pages/Home";
-// import Shop from "./pages/Shop";
-// import Product from "./pages/Product";
-// import Contact from "./pages/Contact";
+import Products from "./pages/Product"; // product listing page
+// import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
     <Routes>
       {/* MAIN LAYOUT */}
       <Route path="/" element={<MainLayout />}>
+        {/* HOME */}
         <Route index element={<Home />} />
-        {/* <Route path="shop" element={<Shop />} />
-        <Route path="product/:id" element={<Product />} />
-        <Route path="contact" element={<Contact />} /> */}
+
+        {/* PRODUCTS LIST PAGE */}
+        <Route path="products" element={<Products />} />
+
+        {/* SINGLE PRODUCT (optional later) */}
+        {/* <Route path="products/:id" element={<ProductDetails />} /> */}
       </Route>
     </Routes>
   );

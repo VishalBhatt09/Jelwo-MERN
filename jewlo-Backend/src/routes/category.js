@@ -3,22 +3,36 @@ const router = express.Router();
 
 const {
   createCategory,
-  bulkCreateCategories,
-  getCategories,
   updateCategory,
   deleteCategory,
+  getSliderCategories,
 } = require("../controllers/categoryController");
 
-const { protect } = require("../middleware/authMiddleware");
-const { adminOnly } = require("../middleware/adminMiddleware");
+const { protect, admin } = require("../middleware/authMiddleware");
+const { uploadCategoryImage } = require("../middleware/upload");
 
-// PUBLIC
-router.get("/", getCategories);
+// CREATE CATEGORY
+router.post(
+  "/",
+  protect,
+  admin,
+  uploadCategoryImage.single("image"),
+  createCategory
+);
 
-// ADMIN
-router.post("/", protect, adminOnly, createCategory);
-router.post("/bulk", protect, adminOnly, bulkCreateCategories);
-router.put("/:id", protect, adminOnly, updateCategory);
-router.delete("/:id", protect, adminOnly, deleteCategory);
+// UPDATE CATEGORY
+router.put(
+  "/:id",
+  protect,
+  admin,
+  uploadCategoryImage.single("image"),
+  updateCategory
+);
+
+// DELETE CATEGORY (soft)
+router.delete("/:id", protect, admin, deleteCategory);
+
+// SLIDER CATEGORIES
+router.get("/slider", getSliderCategories);
 
 module.exports = router;

@@ -1,22 +1,25 @@
 const mongoose = require("mongoose");
 
-const categorySchemqa = new mongoose.Schema(
+const categorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      requrired: true,
-      unique: true,
+      required: true,
       trim: true,
     },
+
     slug: {
       type: String,
-      requrired: true,
+      required: true,
       unique: true,
+      lowercase: true,
     },
-    Image: {
-      type: String,
-      requrired: true,
+
+    image: {
+      type: String, // ← REQUIRED for image path
+      require: true
     },
+
     isActive: {
       type: Boolean,
       default: true,
@@ -25,4 +28,4 @@ const categorySchemqa = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Category", categorySchemqa);
+module.exports = mongoose.model("Category", categorySchema);
